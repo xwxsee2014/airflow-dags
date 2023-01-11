@@ -7,7 +7,7 @@ import time
 
 def sleep_and_count():
     for i in range(10):
-      print(f"count to: {i}")
+      print(f"count update to: {i}")
       time.sleep(15)
 
 # Before: define the global basic DAG
