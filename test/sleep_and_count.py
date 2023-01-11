@@ -2,7 +2,7 @@ from __future__ import print_function
 from airflow.operators.dummy import DummyOperator
 from airflow.operators.python_operator import PythonOperator
 from airflow.models import DAG
-import common_config
+import lib.common_config as common_config
 import time
 
 def sleep_and_count():
