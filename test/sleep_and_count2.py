@@ -1,8 +1,8 @@
 from __future__ import print_function
-from airflow.operators.dummy import DummyOperator
-from airflow.operators.python_operator import PythonOperator
+from airflow.operators.empty import EmptyOperator
+from airflow.operators.python import PythonOperator
 from airflow.models import DAG
-import lib.common_config as common_config
+import common_config as common_config
 import time
 
 def sleep_and_count():
@@ -18,7 +18,7 @@ sleep_and_count2_dag = DAG(
     start_date=common_config.dag_start_date(),
     concurrency=3)
 
-start_task = DummyOperator(task_id='start_task2', retries=3, dag=sleep_and_count2_dag)
+start_task = EmptyOperator(task_id='start_task2', retries=3, dag=sleep_and_count2_dag)
 python_task = PythonOperator(task_id='python_task2', python_callable=sleep_and_count, dag=sleep_and_count2_dag)
 
 start_task >> python_task
