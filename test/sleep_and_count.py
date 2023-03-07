@@ -13,7 +13,7 @@ def sleep_and_count():
 # Before: define the global basic DAG
 sleep_and_count_dag = DAG(
     dag_id='sleep_and_count',
-    schedule_interval="* */10 * * *",
+    schedule_interval="* */30 * * *",
     max_active_runs=1,
     start_date=common_config.dag_start_date(),
     concurrency=3)
