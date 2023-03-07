@@ -26,6 +26,9 @@ run_with_params_dag = DAG(
 
 start_task = EmptyOperator(task_id='start_task', retries=3, dag=run_with_params_dag)
 python_task = PythonOperator(task_id='python_task', python_callable=sleep_and_count_with_params, 
-                             op_kwargs=run_with_params_dag.params, dag=run_with_params_dag)
+                             op_kwargs={
+                              "start_number": "{{ params.start_number }}",
+                              "end_number": "{{ params.end_number }}"
+                            }, dag=run_with_params_dag)
 
 start_task >> python_task
