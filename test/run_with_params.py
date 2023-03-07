@@ -8,8 +8,8 @@ import time
 default_params = {"start_number": 0, "end_number": 100}
 
 def sleep_and_count_with_params(start_number, end_number):
-    for i in range(end_number):
-      if i >= start_number:
+    for i in range(int(end_number)):
+      if i >= int(start_number):
         print(f"count update to: {i}")
       else:
         print(f"wait for starting: {i}")
