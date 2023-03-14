@@ -31,6 +31,13 @@ def sleep_and_substract():
       print(f"substract update to: {substract}")
       time.sleep(1)
 
+def sleep_and_divide():
+    divide = 100
+    for i in range(10):
+      divide /= i
+      print(f"divide update to: {divide}")
+      time.sleep(1)
+
 # Before: define the global basic DAG
 sleep_and_count_dag = DAG(
     dag_id='sleep_and_count',
@@ -44,9 +51,11 @@ python_task = PythonOperator(task_id='python_task', python_callable=sleep_and_co
 python_task_sum = PythonOperator(task_id='python_task_sum', python_callable=sleep_and_sum, dag=sleep_and_count_dag)
 python_task_multiply = PythonOperator(task_id='python_task_multiply', python_callable=sleep_and_multiply, dag=sleep_and_count_dag)
 python_task_substract = PythonOperator(task_id='python_task_substract', python_callable=sleep_and_substract, dag=sleep_and_count_dag)
+python_task_divide = PythonOperator(task_id='python_task_divide', python_callable=sleep_and_divide, dag=sleep_and_count_dag)
 
 # start_task >> python_task
 start_task >> python_task >> python_task_sum
 start_task >> python_task_multiply
 
 python_task_substract
+python_task_divide
