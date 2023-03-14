@@ -24,12 +24,12 @@ def sleep_and_multiply():
       print(f"product update to: {product}")
       time.sleep(1)
 
-# def sleep_and_substract():
-#     substract = 10
-#     for i in range(10):
-#       substract -= i
-#       print(f"substract update to: {substract}")
-#       time.sleep(1)
+def sleep_and_substract():
+    substract = 10
+    for i in range(10):
+      substract -= i
+      print(f"substract update to: {substract}")
+      time.sleep(1)
 
 # Before: define the global basic DAG
 sleep_and_count_dag = DAG(
@@ -48,4 +48,4 @@ python_task_multiply = PythonOperator(task_id='python_task_multiply', python_cal
 start_task >> python_task
 # start_task >> python_task >> python_task_sum
 start_task >> python_task_multiply
-# start_task >> python_task_substract
+start_task >> python_task_substract
