@@ -57,6 +57,6 @@ finish_task = EmptyOperator(task_id='finish_task', retries=3, dag=sleep_and_coun
 
 start_task >> python_task >> finish_task
 start_task >> python_task_sum >> finish_task
-# start_task >> python_task_multiply >> finish_task
+start_task >> python_task_multiply >> finish_task
 # start_task >> python_task_divide >> finish_task
 # start_task >> python_task_substract >> finish_task
