@@ -1,5 +1,5 @@
 from __future__ import print_function
-from airflow.operators.empty import EmptyOperator
+from airflow.operators.dummy import DummyOperator
 from airflow.operators.python import PythonOperator
 from airflow.models import DAG
 import common_config as common_config
@@ -47,13 +47,13 @@ sleep_and_count_dag = DAG(
     start_date=common_config.dag_start_date(reduce_days=0),
     concurrency=3)
 
-start_task = EmptyOperator(task_id='start_task', retries=3, dag=sleep_and_count_dag)
+start_task = DummyOperator(task_id='start_task', retries=3, dag=sleep_and_count_dag)
 python_task = PythonOperator(task_id='python_task', python_callable=sleep_and_count, dag=sleep_and_count_dag)
 python_task_sum = PythonOperator(task_id='python_task_sum', python_callable=sleep_and_sum, dag=sleep_and_count_dag)
 python_task_multiply = PythonOperator(task_id='python_task_multiply', python_callable=sleep_and_multiply, dag=sleep_and_count_dag)
 # python_task_substract = PythonOperator(task_id='python_task_substract', python_callable=sleep_and_substract, dag=sleep_and_count_dag)
 # python_task_divide = PythonOperator(task_id='python_task_divide', python_callable=sleep_and_divide, dag=sleep_and_count_dag)
-finish_task = EmptyOperator(task_id='finish_task', retries=3, dag=sleep_and_count_dag)
+finish_task = DummyOperator(task_id='finish_task', retries=3, dag=sleep_and_count_dag)
 
 start_task >> python_task >> finish_task
 start_task >> python_task_sum >> finish_task
