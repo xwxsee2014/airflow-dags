@@ -44,7 +44,7 @@ sleep_and_count_dag = DAG(
     dag_id='sleep_and_count',
     schedule_interval="@once",
     max_active_runs=1,
-    start_date=common_config.dag_start_date(educe_days=0),
+    start_date=common_config.dag_start_date(reduce_days=0),
     concurrency=3)
 
 start_task = EmptyOperator(task_id='start_task', retries=3, dag=sleep_and_count_dag)
