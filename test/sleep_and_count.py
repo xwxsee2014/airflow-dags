@@ -48,4 +48,5 @@ python_task_substract = PythonOperator(task_id='python_task_substract', python_c
 # start_task >> python_task
 start_task >> python_task >> python_task_sum
 start_task >> python_task_multiply
-start_task >> python_task_substract
+
+python_task_substract
