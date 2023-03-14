@@ -1,5 +1,5 @@
 from __future__ import print_function
-from airflow.operators.empty import EmptyOperator
+from airflow.operators.dummy import DummyOperator
 from airflow.operators.python import PythonOperator
 from airflow.models import DAG
 import common_config as common_config
@@ -24,7 +24,7 @@ run_with_params_dag = DAG(
     params=default_params,
     concurrency=1)
 
-start_task = EmptyOperator(task_id='start_task', retries=3, dag=run_with_params_dag)
+start_task = DummyOperator(task_id='start_task', retries=3, dag=run_with_params_dag)
 python_task = PythonOperator(task_id='python_task', python_callable=sleep_and_count_with_params, 
                              op_kwargs={
                               "start_number": "{{ params.start_number }}",
