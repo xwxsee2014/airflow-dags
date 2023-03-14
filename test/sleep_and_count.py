@@ -41,12 +41,12 @@ def sleep_and_divide():
         time.sleep(1)
 
 # Before: define the global basic DAG
-sleep_and_count_dag = DAG(
-    dag_id='sleep_and_count',
-    schedule_interval="@once",
-    max_active_runs=1,
-    start_date=common_config.dag_start_date(reduce_days=0),
-    concurrency=3)
+sleep_and_count_dag = DAG(dag_id='sleep_and_count',
+                          default_args=common_config.dag_default_args(),
+                          schedule_interval='@once',
+                          max_active_runs=1,
+                          start_date=common_config.dag_start_date(reduce_days=0),
+                          concurrency=6)
 
 start_task = DummyOperator(task_id='start_task', retries=3, dag=sleep_and_count_dag)
 python_task = PythonOperator(task_id='python_task', python_callable=sleep_and_count, dag=sleep_and_count_dag)
