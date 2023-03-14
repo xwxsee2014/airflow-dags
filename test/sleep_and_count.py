@@ -2,6 +2,7 @@ from __future__ import print_function
 from airflow.operators.dummy import DummyOperator
 from airflow.operators.python import PythonOperator
 from airflow.models import DAG
+from EmbulkWSPlugin import EmbulkWSOperator
 import common_config as common_config
 import time
 
@@ -54,11 +55,14 @@ python_task_multiply = PythonOperator(task_id='python_task_multiply', python_cal
 # python_task_substract = PythonOperator(task_id='python_task_substract', python_callable=sleep_and_substract, dag=sleep_and_count_dag)
 python_task_divide = PythonOperator(task_id='python_task_divide', python_callable=sleep_and_divide, dag=sleep_and_count_dag)
 finish_task = DummyOperator(task_id='finish_task', retries=3, dag=sleep_and_count_dag)
+test_task = EmbulkWSOperator(task_id="1", controller='run', parameters={}, dag=sleep_and_count_dag, pool="default_pool")
 
 start_task >> python_task >> finish_task
 start_task >> python_task_sum >> finish_task
 start_task >> python_task_multiply >> finish_task
 start_task.set_downstream(python_task_divide)
 finish_task.set_upstream(python_task_divide)
+start_task.set_downstream(test_task)
+finish_task.set_upstream(test_task)
 # start_task >> python_task_divide >> finish_task
 # start_task >> python_task_substract >> finish_task
