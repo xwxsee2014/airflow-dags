@@ -20,9 +20,9 @@ def sleep_and_sum():
 # Before: define the global basic DAG
 sleep_and_count_dag = DAG(
     dag_id='sleep_and_count',
-    schedule_interval="* */30 * * *",
+    schedule="30 0 * * *",
     max_active_runs=1,
-    start_date=common_config.dag_start_date(),
+    start_date=common_config.dag_start_date(reduce_days=5),
     concurrency=3)
 
 start_task = EmptyOperator(task_id='start_task', retries=3, dag=sleep_and_count_dag)
