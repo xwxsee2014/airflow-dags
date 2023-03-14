@@ -42,7 +42,7 @@ def sleep_and_divide():
 # Before: define the global basic DAG
 sleep_and_count_dag = DAG(
     dag_id='sleep_and_count',
-    schedule_interval="30 0 * * *",
+    schedule_interval="@once",
     max_active_runs=1,
     start_date=common_config.dag_start_date(reduce_days=5),
     concurrency=3)
