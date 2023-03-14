@@ -17,6 +17,13 @@ def sleep_and_sum():
       print(f"sum update to: {sum}")
       time.sleep(1)
 
+def sleep_and_multiply():
+    product = 0
+    for i in range(10):
+      product *= i
+      print(f"product update to: {product}")
+      time.sleep(1)
+
 # Before: define the global basic DAG
 sleep_and_count_dag = DAG(
     dag_id='sleep_and_count',
@@ -28,5 +35,7 @@ sleep_and_count_dag = DAG(
 start_task = EmptyOperator(task_id='start_task', retries=3, dag=sleep_and_count_dag)
 python_task = PythonOperator(task_id='python_task', python_callable=sleep_and_count, dag=sleep_and_count_dag)
 python_task_sum = PythonOperator(task_id='python_task_sum', python_callable=sleep_and_sum, dag=sleep_and_count_dag)
+python_task_multiply = PythonOperator(task_id='python_task_multiply', python_callable=sleep_and_multiply, dag=sleep_and_count_dag)
 
 start_task >> python_task >> python_task_sum
+start_task >> python_task_multiply
