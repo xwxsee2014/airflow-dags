@@ -18,7 +18,7 @@ def sleep_and_count_with_params(start_number, end_number):
 # Before: define the global basic DAG
 run_with_params_dag = DAG(
     dag_id='run_with_params',
-    schedule=None,
+    schedule_interval=None,
     max_active_runs=1,
     start_date=common_config.dag_start_date(),
     params=default_params,
