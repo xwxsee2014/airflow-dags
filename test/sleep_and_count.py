@@ -55,14 +55,16 @@ python_task_multiply = PythonOperator(task_id='python_task_multiply', python_cal
 # python_task_substract = PythonOperator(task_id='python_task_substract', python_callable=sleep_and_substract, dag=sleep_and_count_dag)
 python_task_divide = PythonOperator(task_id='python_task_divide', python_callable=sleep_and_divide, dag=sleep_and_count_dag)
 finish_task = DummyOperator(task_id='finish_task', retries=3, dag=sleep_and_count_dag)
-test_task = EmbulkWSOperator(task_id="1", controller='run', parameters={}, dag=sleep_and_count_dag, pool="default_pool", config_path="/home/airflow/redmodo.conf")
 
 start_task >> python_task >> finish_task
 start_task >> python_task_sum >> finish_task
 start_task >> python_task_multiply >> finish_task
 start_task.set_downstream(python_task_divide)
 finish_task.set_upstream(python_task_divide)
-start_task.set_downstream(test_task)
-finish_task.set_upstream(test_task)
+embulk_task = {}
+for i in range(3):
+  embulk_task[i] = EmbulkWSOperator(task_id="test_task_"+str(i), controller='run', parameters={}, dag=sleep_and_count_dag, pool="default_pool", config_path="/home/airflow/redmodo.conf")
+  start_task.set_downstream(embulk_task[i])
+  finish_task.set_upstream(embulk_task[i])
 # start_task >> python_task_divide >> finish_task
 # start_task >> python_task_substract >> finish_task
