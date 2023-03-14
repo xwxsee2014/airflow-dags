@@ -55,7 +55,7 @@ python_task_multiply = PythonOperator(task_id='python_task_multiply', python_cal
 # python_task_substract = PythonOperator(task_id='python_task_substract', python_callable=sleep_and_substract, dag=sleep_and_count_dag)
 python_task_divide = PythonOperator(task_id='python_task_divide', python_callable=sleep_and_divide, dag=sleep_and_count_dag)
 finish_task = DummyOperator(task_id='finish_task', retries=3, dag=sleep_and_count_dag)
-test_task = EmbulkWSOperator(task_id="1", controller='run', parameters={}, dag=sleep_and_count_dag, pool="default_pool")
+test_task = EmbulkWSOperator(task_id="1", controller='run', parameters={}, dag=sleep_and_count_dag, pool="default_pool", config_path="/home/airflow/redmodo.conf")
 
 start_task >> python_task >> finish_task
 start_task >> python_task_sum >> finish_task
