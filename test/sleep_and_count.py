@@ -58,4 +58,4 @@ start_task >> python_task >> python_task_sum
 start_task >> python_task_multiply
 
 python_task_substract
-python_task_divide
+start_task >> python_task_divide
